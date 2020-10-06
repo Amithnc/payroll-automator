@@ -1,10 +1,16 @@
 from django.db import models
+import os
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 
-# Create your models here.
+class OverwriteStorage(FileSystemStorage):
+    def get_available_name(self, name,max_length=None):
+        if self.exists(name):
+            os.remove(os.path.join(settings.MEDIA_ROOT, name))
+        return name
+
 class employee(models.Model):
-    employee_name=models.CharField(max_length=30,default='',help_text="enter the employee name")
-    employee_mob=models.CharField(max_length=15,default='',help_text="enter the mobile number")
-    employee_email=models.CharField(max_length=30,default='',help_text="enter the email id")
-
+    employee_file=models.FileField(upload_to='file',storage=OverwriteStorage(),help_text="please upload file",verbose_name='employee details',default='')
+    
     def __str__(self):
-        return str(self.employee_name) 
+        return str(self.employee_file) 
