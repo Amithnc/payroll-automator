@@ -1,0 +1,51 @@
+<!DOCTYPE html>{% load static %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <title>FILE</title>
+    <!-- <link rel="stylesheet" href="{% static 'css1/bootstrap.min.css' %}"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body style="background-color:cornsilk;" >
+<div class="container">
+    <div class="col-sm-6">
+     <br>   
+    <h4 class="text-info">The are the details of employees</h4>
+    <br>
+        <table class="table table-bordered table-sm table-dark">
+            <thead>
+                <tr>
+                <th scope="col"><h6><strong>Name</strong></h6></th>
+                <th scope="col"><h6><strong>Email ID</strong></h6></th>
+                <th scope="col"><h6><strong>Status</strong></h6></th>
+                </tr>
+            </thead>
+            {% for name,email,status in mainlist %}
+                <tbody>
+                <tr>
+                <th scope="row"><h6>{{ name }}</h6></th>
+                <td><h6>{{ email }}</h6></td>
+                {% ifequal status 0 %}
+                    <td><p class="badge badge-success">User Already Exist</p></td>
+                {% else %}
+                    <td><p class="badge badge-info">User To Be Created</p></td>
+                {%endifequal%}    
+                </tr>
+                </tbody>
+            {%endfor%}
+        </table>
+        <br>
+        {%ifequal flag 0 %}
+            <a href="/create-employee/{{id}}" data-toggle="tooltip" title="Create User">
+                <button type="button" class="btn btn-primary">Create User/Users</button>
+            </a>
+        {%endifequal%}  
+        <a href="/" data-toggle="tooltip" title="back">
+            <button type="button" class="btn btn-secondary">back</button>
+        </a>
+</div>
+</div>
+</body>
+</html>
