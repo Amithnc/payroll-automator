@@ -50,7 +50,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+LOGIN_REDIRECT_URL = ''
 ROOT_URLCONF = 'payroll.urls'
 
 TEMPLATES = [

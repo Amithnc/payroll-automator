@@ -3,18 +3,25 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src= "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
     <title>FILE</title>
     <!-- <link rel="stylesheet" href="{% static 'css1/bootstrap.min.css' %}"> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
-<body style="background-color:cornsilk;" >
+<body style="background-color:#423644;" >
 <div class="container">
+    <div class="row">
     <div class="col-sm-6">
      <br>   
     <h4 class="text-info">The are the details of employees</h4>
+    {% if messages %}
+    {% for message in messages %}
+            <div id="alert" class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert"  >{{ message }}</div>
+    {% endfor %}
+    {% endif %}
     <br>
-        <table class="table table-bordered table-sm table-dark">
+        <table class="table table-bordered table-sm " style="background-color:#effafd;">
             <thead>
                 <tr>
                 <th scope="col"><h6><strong>Name</strong></h6></th>
@@ -30,7 +37,7 @@
                 {% ifequal status 0 %}
                     <td><p class="badge badge-success">User Already Exist</p></td>
                 {% else %}
-                    <td><p class="badge badge-info">User To Be Created</p></td>
+                    <td><p class="badge badge-warning">User To Be Created</p></td>
                 {%endifequal%}    
                 </tr>
                 </tbody>
@@ -46,6 +53,25 @@
             <button type="button" class="btn btn-secondary">back</button>
         </a>
 </div>
+<div>
+    <div class="col-lg">
+        
+        <br><br><br>
+            <h4><p class="badge badge-secondary">INFO:</p></h4>
+        <ul>
+            <li style="color: #effafd;" >The users with green status are Already Created</li><br>
+            <li style="color:#effafd;" >the users with yellow status are yet to be Created <br>
+            click create user button to create users</li>
+        </ul>
+      </div>
 </div>
+</div>
+</div>
+<script type="text/javascript"> 
+    setTimeout(function () { 
+        // Closing the alert 
+        $('#alert').alert('close'); 
+    }, 7000); 
+</script> 
 </body>
 </html>
