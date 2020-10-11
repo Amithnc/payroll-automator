@@ -4,7 +4,7 @@ from django.contrib import auth
 from pandas import read_excel
 from django.contrib.auth import get_user_model
 import random
-from .models import employee
+from .models import employee,payroll
 from .forms import registerForm,registerFormnovalidate
 from django.contrib import messages
 import time
@@ -20,8 +20,10 @@ UPCASE_CHARACTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H','I', 'J', 'K', 'M', 
 @login_required(login_url='/login')
 def homepage(request):
     files=employee.objects.all()
-    context={};context['files']=files
-    return render(request,'home.html',context)
+    payroll_files=payroll.objects.all()
+    return_resposne={};return_resposne['files']=files
+    return_resposne['payroll_file']=payroll_files
+    return render(request,'home.html',return_resposne)
 
 def logout(request):
     auth.logout(request)
@@ -95,7 +97,8 @@ def updatedetails(request,id):
             return redirect(url)
     else:
         form = registerFormnovalidate(request.POST  or None,files=request.FILES,instance = instance)        
-    context={}
-    context['instance']=instance  
-    context['form']=form  
-    return render(request,'update.html',context)   
+    return_resposne={}
+    return_resposne['instance']=instance  
+    return_resposne['form']=form  
+    return_resposne['url_name']='update-details'
+    return render(request,'update.html',return_resposne)   

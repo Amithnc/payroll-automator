@@ -95,34 +95,39 @@
                     </table>
                 </div>
                 <div ng-show="page === 'send-message'">
-                <h4 class="text-success">these are the files you can change</h4>
-                    <table class="table table-bordered table-sm table-dark">
+                <h4 class="text-success">these are the files which contains payroll details</h4>
+                    <table class="table table-bordered table-sm table-dark" style="background-color: mintcream;;">
                         <thead>
                             <tr>
-                              <th scope="col"><h6><strong>Name</strong></h6></th>
-                              <th scope="col"><h6><strong>Last Updated on</strong></h6></th>
-                              <th scope="col"><h6><strong>Last updated by</strong></h6></th>
-                              <th scope="col"><h6><strong>change-File</strong></h6></th>
+                              <th scope="col"><h6 class="text text-dark" ><strong>File Name</strong></h6></th>
+                              <th scope="col"><h6 class="text text-dark"><strong>Status</strong></h6></th>
+                              <th scope="col"><h6 class="text text-dark"><strong>update</strong></h6></th>
+                              <th scope="col"><h6 class="text text-dark"><strong>verify</strong></h6></th>
                             </tr>
                           </thead>
-                          <form action="/viewfile/" method="POST" id="viewform">
-                            {% csrf_token %}
-                          {% for change in changes.all %}
+                          {% for file in payroll_file %}
                           <tbody>
                             <tr>
-                              <th scope="row"><h6>{{ change.name }}</h6></th>
-                              <td><h6>{{ change.last_updated_on }}</h6></td>
-                              <td><h6>{{ change.updated_by }}</h6></td>
+                              <th scope="row"><h6 class="text text-dark">{{ file.payroll_file }}</h6></th>
+                              <td>
+                              {%ifequal "Visible" file.status %}
+                                  <p class="badge badge-pill badge-success">Visible</p>
+                              {%else%}
+                                  <p class="badge badge-pill badge-danger">Hidden</p>    
+                              {%endifequal%}    
+                              </td>
                               <td>
                                 <p>
-                                    <a href="/update/{{change.id}}" class="badge badge-pill badge-warning">Update</a>
+                                    <a href="update-details/{{file.id}}" class="badge badge-pill badge-primary">Update File</a></p>
                               </td>
+                              <td>
+                                <p>
+                                    <a href="verify-employee/{{file.id}}" class="badge badge-pill badge-dark">Verify Status</a></p> 
+                                </td>
                             </tr>
                         </tbody>
                         {%endfor%}
-                      </form>
                         </table> 
-                        hi
                 </div>
             </div>
           </div>

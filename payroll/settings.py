@@ -54,6 +54,9 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 LOGIN_REDIRECT_URL = ''
 ROOT_URLCONF = 'payroll.urls'
 
+DATE_INPUT_FORMATS = ( "%d/%m/%Y", )
+DATETIME_INPUT_FORMATS = ( "%d/%m/%Y %H:%M", )
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
