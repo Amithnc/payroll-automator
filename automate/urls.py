@@ -12,8 +12,9 @@ urlpatterns = [
                 'site_title' : 'payroll-Portal',
             })),
     path('logout/',views.logout),
-    path('create-employee/<int:id>',views.createuser),
+    path('create-employee/<int:id>/',views.createuser),
     path('update-details/<int:id>/',views.updatedetails,name='update-details'),
     path('verify-employee/<int:id>/',views.verifyemployee),
-
+    path('update-payroll/<int:id>/',views.update_payroll,name='update-payroll'),
+    
 ]

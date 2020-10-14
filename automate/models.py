@@ -61,6 +61,7 @@ class payroll(models.Model):
     def save(self, *args, **kwargs):
         data=read_excel(self.payroll_file)
         self.month=data['Month'][0]
+        time.sleep(5)  
         super(payroll, self).save(*args, **kwargs)
 
 

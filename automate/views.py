@@ -5,7 +5,7 @@ from pandas import read_excel
 from django.contrib.auth import get_user_model
 import random
 from .models import employee,payroll
-from .forms import registerForm,registerFormnovalidate
+from .forms import registerForm,registerFormnovalidate,payrollUpdateForm,NoValidatePayroll
 from django.contrib import messages
 import time
 from django.contrib.auth.decorators import login_required
@@ -102,3 +102,27 @@ def updatedetails(request,id):
     return_resposne['form']=form  
     return_resposne['url_name']='update-details'
     return render(request,'update.html',return_resposne)   
+
+#for payroll model
+@login_required(login_url='/login')
+def update_payroll(request,id):
+    instance=get_object_or_404(payroll,id=id)
+    if request.method=="POST":
+        form=payrollUpdateForm(request.POST or None,files=request.FILES,instance=instance)
+        if form.is_valid():
+            temp=form.save(commit=False)
+            time.sleep(3)
+            temp.save()
+            url="/verify-payroll"+str(id)
+            messages.success(request,'File Uploaded Successfully')
+            return redirect('/')
+    else:
+        form = NoValidatePayroll(request.POST  or None,files=request.FILES,instance = instance)
+    return_resposne={}
+    return_resposne['instance']=instance  
+    return_resposne['form']=form  
+    return_resposne['url_name']='update-payroll'
+    return render(request,'update.html',return_resposne)
+
+
+

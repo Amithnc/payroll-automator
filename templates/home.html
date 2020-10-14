@@ -68,6 +68,9 @@
             <br> 
             <div class="row">
                 <div ng-show="page === 'create'">
+                  <p class="text-center" ><a href="/admin/automate/employee/add" data-toggle="tooltip" title="add new file">
+                    <button type="button" class="badge badge-info" style="color: rgb(0, 0, 0);" >Add employee file</button>
+                    </a></p>
                     <h4 class="text" style="color: mintcream;">these are the files containing employee details</h4>
                     <table class="table table-bordered table-sm" style="background-color: mintcream;">
                         <thead>
@@ -118,7 +121,7 @@
                               </td>
                               <td>
                                 <p>
-                                    <a href="update-details/{{file.id}}" class="badge badge-pill badge-primary">Update File</a></p>
+                                    <a href="update-payroll/{{file.id}}" class="badge badge-pill badge-primary">Update File</a></p>
                               </td>
                               <td>
                                 <p>
