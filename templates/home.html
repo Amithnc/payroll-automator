@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <style>
         h6 {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 400;
-  margin: 0 0 20px 0;
-  padding: 0;
-}
+          font-family: "Montserrat", sans-serif;
+          font-weight: 400;
+          margin: 0 0 20px 0;
+          padding: 0;
+          }
     </style>
 </head>
 <body style="background-color:#423644;" >
@@ -43,6 +43,7 @@
 <div class="text text-center">
   <h2><p class="badge badge-info">ADMIN DASHBOADR</p></h2>
 </div>
+<hr>
 <div ng-app>
     <div class="d-flex" id="wrapper">
           <div class="container">
@@ -68,7 +69,7 @@
             <br> 
             <div class="row">
                 <div ng-show="page === 'create'">
-                  <p class="text-center" ><a href="/admin/automate/employee/add" data-toggle="tooltip" title="add new file">
+                  <p><span style="color: mintcream;" >add file here:</span><a class="text-center"  href="/admin/automate/employee/add" data-toggle="tooltip" title="add new file">
                     <button type="button" class="badge badge-info" style="color: rgb(0, 0, 0);" >Add employee file</button>
                     </a></p>
                     <h4 class="text" style="color: mintcream;">these are the files containing employee details</h4>
@@ -98,11 +99,14 @@
                     </table>
                 </div>
                 <div ng-show="page === 'send-message'">
+                  <p ><span style="color: mintcream;" >add file here:</span><a class="text-center" href="/admin/automate/payroll/add/" data-toggle="tooltip" title="add new file">
+                    <button type="button" class="badge badge-info" style="color: rgb(0, 0, 0);" >Add Payroll file</button>
+                    </a></p>
                 <h4 class="text-success">these are the files which contains payroll details</h4>
                     <table class="table table-bordered table-sm table-dark" style="background-color: mintcream;;">
                         <thead>
                             <tr>
-                              <th scope="col"><h6 class="text text-dark" ><strong>File Name</strong></h6></th>
+                              <th scope="col"><h6 class="text text-dark" ><strong>Month</strong></h6></th>
                               <th scope="col"><h6 class="text text-dark"><strong>Status</strong></h6></th>
                               <th scope="col"><h6 class="text text-dark"><strong>update</strong></h6></th>
                               <th scope="col"><h6 class="text text-dark"><strong>verify</strong></h6></th>
@@ -111,7 +115,7 @@
                           {% for file in payroll_file %}
                           <tbody>
                             <tr>
-                              <th scope="row"><h6 class="text text-dark">{{ file.payroll_file }}</h6></th>
+                              <th scope="row"><h6 class="text text-dark">{{ file.month}}</h6></th>
                               <td>
                               {%ifequal "Visible" file.status %}
                                   <p class="badge badge-pill badge-success">Visible</p>
@@ -125,7 +129,7 @@
                               </td>
                               <td>
                                 <p>
-                                    <a href="verify-employee/{{file.id}}" class="badge badge-pill badge-dark">Verify Status</a></p> 
+                                    <a href="verify-payroll/{{file.id}}" class="badge badge-pill badge-dark">Verify Status</a></p> 
                                 </td>
                             </tr>
                         </tbody>

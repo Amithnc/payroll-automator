@@ -1,0 +1,67 @@
+<!DOCTYPE html>{% load static %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src= "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
+    <title>FILE</title>
+    <!-- <link rel="stylesheet" href="{% static 'css1/bootstrap.min.css' %}"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body style="background-color:#423644;" >
+<div class="container">
+    <div class="row">
+    <div class="col-sm-6">
+     <br>   
+    <h4 class="text-warning">The are the details of payroll for the month {{month}}  </h4>
+    {% if messages %}
+    {% for message in messages %}
+            <div id="alert" class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert"  >{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+    <br>
+        <table class="table table-bordered table-sm " style="background-color:#effafd;">
+            <thead>
+                <tr>
+                <th scope="col"><h6><strong>Name</strong></h6></th>
+                <th scope="col"><h6><strong>Phone Number</strong></h6></th>
+                <th scope="col"><h6><strong>Amount</strong></h6></th>
+                <th scope="col"><h6><strong>status</strong></h6></th>
+                </tr>
+            </thead>
+            {% for name,phone,amount,status in mainlist %}
+                <tbody>
+                <tr>
+                <th scope="row"><h6>{{ name }}</h6></th>
+                <td><h6>{{ phone }}</h6></td>
+                <td><h6>{{ amount }}</h6></td>
+                {% ifequal status 0 %}
+                    <td><p class="badge badge-warning">message still need to be sent</p></td>
+                {% else %}
+                    <td><p class="badge badge-success">message sent</p></td>
+                {%endifequal%}    
+                </tr>
+                </tbody>
+            {%endfor%}
+        </table>
+        <br>
+        {%ifequal flag 0 %}
+            <a href="/" data-toggle="tooltip" title="send message">
+                <button type="button" class="btn btn-primary">send message</button>
+            </a>
+        {%endifequal%}  
+        <a href="/" data-toggle="tooltip" title="back">
+            <button type="button" class="btn btn-secondary">back</button>
+        </a>
+</div>
+</div>
+</div>
+<script type="text/javascript"> 
+    setTimeout(function () { 
+        // Closing the alert 
+        $('#alert').alert('close'); 
+    }, 7000); 
+</script> 
+</body>
+</html>

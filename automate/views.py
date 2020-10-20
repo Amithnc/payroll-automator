@@ -7,8 +7,12 @@ import random
 from .models import employee,payroll
 from .forms import registerForm,registerFormnovalidate,payrollUpdateForm,NoValidatePayroll
 from django.contrib import messages
-import time
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+
+
 #email part
 SenderAddress="bandersnatch28@gmail.com"
 pswd="--__--"
@@ -24,6 +28,24 @@ def homepage(request):
     return_resposne={};return_resposne['files']=files
     return_resposne['payroll_file']=payroll_files
     return render(request,'home.html',return_resposne)
+
+
+
+# def pdfview(request):
+#     files=employee.objects.all()
+#     payroll_files=payroll.objects.all()
+#     template_path = 'home.html'
+#     context = {'files':files,'payroll_file':payroll_files}
+#     response = HttpResponse(content_type='application/pdf')
+#     response['Content-Disposition'] = 'filename="home.pdf"'
+#     template = get_template(template_path)
+#     html = template.render(context)
+#     pisa_status = pisa.CreatePDF(
+#        html, dest=response)
+#     if pisa_status.err:
+#        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+#     return response
+
 
 def logout(request):
     auth.logout(request)
@@ -89,8 +111,7 @@ def updatedetails(request,id):
     if request.method == "POST":
         form = registerForm(request.POST  or None,files=request.FILES,instance = instance)
         if form.is_valid():
-            temp=form.save(commit=False)
-            time.sleep(3)    
+            temp=form.save(commit=False)    
             temp.save()
             url="/verify-employee/"+str(id)
             messages.success(request, 'File Uploaded Successfully')
@@ -111,7 +132,6 @@ def update_payroll(request,id):
         form=payrollUpdateForm(request.POST or None,files=request.FILES,instance=instance)
         if form.is_valid():
             temp=form.save(commit=False)
-            time.sleep(3)
             temp.save()
             url="/verify-payroll"+str(id)
             messages.success(request,'File Uploaded Successfully')
@@ -124,5 +144,22 @@ def update_payroll(request,id):
     return_resposne['url_name']='update-payroll'
     return render(request,'update.html',return_resposne)
 
-
-
+@login_required(login_url='/login')
+def verifypayroll(request,id):
+    instance=get_object_or_404(payroll,id=id) 
+    filename=instance.payroll_file
+    data=read_excel(filename)
+    name=[];phone=[];amount=[];status=[];context={};flag=0
+    for i in range(len(data)):
+        if data['status'][i]==0:
+            status.append(0)
+        else:
+            status.append(1)
+        name.append(data['Name'][i]);phone.append(data['Phone number'][i]);amount.append(data['amount'][i])
+    if status.count(0)==0:
+        flag=1     
+    context['mainlist']=zip(name,phone,amount,status)
+    context['flag']=flag
+    context['id']=instance.id
+    context['month']=instance.month
+    return render(request,'verifypayroll.html',context)

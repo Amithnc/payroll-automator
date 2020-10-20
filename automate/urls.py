@@ -16,5 +16,6 @@ urlpatterns = [
     path('update-details/<int:id>/',views.updatedetails,name='update-details'),
     path('verify-employee/<int:id>/',views.verifyemployee),
     path('update-payroll/<int:id>/',views.update_payroll,name='update-payroll'),
-    
+    # path('pdf-view/',views.pdfview),
+    path('verify-payroll/<int:id>/',views.verifypayroll),
 ]

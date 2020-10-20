@@ -9,15 +9,9 @@ from django.core.exceptions import ValidationError
 
 
 
-class OverwriteStorage(FileSystemStorage):
-    def get_available_name(self, name,max_length=None): 
-        if self.exists(name):
-            os.remove(os.path.join(settings.MEDIA_ROOT, name))
-        time.sleep(2)    
-        return name
 
 class employee(models.Model):
-    employee_file=models.FileField(upload_to='file',storage=OverwriteStorage(),help_text="please upload file",verbose_name='employee details',default='')
+    employee_file=models.FileField(upload_to='file',help_text="please upload file",verbose_name='employee details')
     
     def __str__(self):
         return str(self.employee_file) 
@@ -44,7 +38,7 @@ class payroll(models.Model):
     #     ('December','December'),
     # ]
     status=models.CharField(choices=status_option,help_text="please select one option",max_length=10,default='')
-    payroll_file=models.FileField(upload_to='file',storage=OverwriteStorage(),help_text="please upload file",verbose_name='payroll details',default='')
+    payroll_file=models.FileField(upload_to='file',help_text="please upload file",verbose_name='payroll details')
     month=models.CharField(help_text="please select the month",max_length=20,default='',blank=True,editable=False)
 
     def clean(self):
