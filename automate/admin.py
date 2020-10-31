@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import employee,payroll
+from .models import employee,payroll,latestmonth
 
 # Register your models here.
 admin.site.index_title=""
@@ -15,3 +15,8 @@ class payrollAdmin(admin.ModelAdmin):
     list_display=('month','payroll_file','status')
 
 admin.site.register(payroll,payrollAdmin)    
+
+class latestmonthAdmin(admin.ModelAdmin):
+    list_display=('month','date_time')
+
+admin.site.register(latestmonth,latestmonthAdmin) 

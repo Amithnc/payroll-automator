@@ -17,6 +17,10 @@ class employee(models.Model):
         return str(self.employee_file) 
 
 
+class latestmonth(models.Model):
+    month=models.CharField(help_text="month",max_length=20,default='',blank=True)
+    date_time=models.DateTimeField()
+
 
 class payroll(models.Model):
     status_option= [
@@ -62,3 +66,4 @@ class payroll(models.Model):
 
     def __str__(self):
         return str(self.month) 
+
