@@ -7,7 +7,8 @@ from django import forms
 from pandas import read_excel
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
-
+import datetime
+from django.db.models.functions import ExtractMonth
 
 
 
@@ -77,12 +78,14 @@ class payroll(models.Model):
 
     def save(self, *args, **kwargs):
         data=read_excel(self.payroll_file)
-        self.month=data['Month'][0]
-        time.sleep(5)  
+        month=data['Month'][0]
+        temp=month.split('-')
+        month=temp[1]+"-"+temp[0]
+        self.month=month
         super(payroll, self).save(*args, **kwargs)
 
 
 
     def __str__(self):
-        return str(self.month) 
+        return str(self.month)
 

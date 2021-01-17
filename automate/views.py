@@ -19,7 +19,7 @@ import requests
 
 #email part
 SenderAddress="bandersnatch28@gmail.com"
-pswd="Geetha10raksha123"
+pswd="__--__"
 # password generator.
 DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']   
 LOCASE_CHARACTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h','i', 'j', 'k', 'm', 'n', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'] 
@@ -41,16 +41,20 @@ def homepage(request):
                 data=read_excel(File.payroll_file)
                 for i in range(len(data)):
                     if str(request.user) == str(data["Name"][i]):
-                        ph_number=(data["Phone number"][i])
-                        TA.append(data["TA"][i])
-                        DA.append(data["DA"][i])
-                        PF.append(data["PF"][i])
-                        basic.append(data["Basic"][i])
-                        total.append(data["amount"][i])
-                        month.append(data['Month'][0])
-                        context['list']=zip(TA,DA,PF,basic,total,month)
-                        context['ph_number']=ph_number
-                        return render(request,'home.html',context)
+                        print(data["visibility"][i])
+                        if data["visibility"][i]=="yes":
+                            ph_number=(data["Phone number"][i])
+                            TA.append(data["TA"][i])
+                            DA.append(data["DA"][i])
+                            PF.append(data["PF"][i])
+                            basic.append(data["Basic"][i])
+                            total.append(data["amount"][i])
+                            month.append(data['Month'][0])
+                            context['list']=zip(TA,DA,PF,basic,total,month)
+                            context['ph_number']=ph_number
+                            return render(request,'home.html',context)
+                        else:
+                            continue    
                 else:
                     return render(request,'home.html',context)
             else:
