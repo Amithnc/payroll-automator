@@ -14,7 +14,7 @@
     <div class="row">
     <div class="col-sm-6">
      <br>   
-    <h4 class="text-warning">The are the details of payroll for the month {{month}}  </h4>
+    <h4 class="text-warning">The are the details of payroll for the month <u><i><b style="color:wheat;" >{{month}}</b></i></u></h4>
     {% if messages %}
     {% for message in messages %}
             <div id="alert" class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert"  >{{ message }}</div>
@@ -36,18 +36,18 @@
                 <th scope="row"><h6>{{ name }}</h6></th>
                 <td><h6>{{ phone }}</h6></td>
                 <td><h6>{{ amount }}</h6></td>
-                {% ifequal status 0 %}
+                {% if status != "Sent" %}
                     <td><p class="badge badge-warning">message still need to be sent</p></td>
-                {% else %}
+                {%else%}
                     <td><p class="badge badge-success">message sent</p></td>
-                {%endifequal%}    
+                {%endif%}    
                 </tr>
                 </tbody>
             {%endfor%}
         </table>
         <br>
         {%ifequal flag 0 %}
-            <a href="/" data-toggle="tooltip" title="send message">
+            <a href="/send-messages/{{id}}" data-toggle="tooltip" title="send message">
                 <button type="button" class="btn btn-primary">send message</button>
             </a>
         {%endifequal%}  

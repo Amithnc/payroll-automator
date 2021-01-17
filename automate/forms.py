@@ -41,27 +41,27 @@ class registerFormnovalidate(forms.ModelForm):
             'employee_file': '',
         }  
 
-class payrollUpdateForm(forms.ModelForm):
-    class Meta:  
-        model = payroll  
+# class payrollUpdateForm(forms.ModelForm):
+#     class Meta:  
+#         model = payroll  
 
-        fields = ('payroll_file','status')  
-        help_texts = {
-            'payroll_file': '',
-        }
-    def clean(self):
-        payroll_file=self.cleaned_data['payroll_file'] 
-        check_file_name=str(payroll_file)
-        check_file_name=check_file_name.split('/')
-        if check_file_name[0]=='file':
-            raise forms.ValidationError("No file selected please upload appropriate file")
+#         fields = ('payroll_file','status')  
+#         help_texts = {
+#             'payroll_file': '',
+#         }
+#     def clean(self):
+#         payroll_file=self.cleaned_data['payroll_file'] 
+#         check_file_name=str(payroll_file)
+#         check_file_name=check_file_name.split('/')
+#         if check_file_name[0]=='file':
+#             raise forms.ValidationError("No file selected please upload appropriate file")
 
-        return self.cleaned_data
+#         return self.cleaned_data
 
-class NoValidatePayroll(forms.ModelForm):  
-    class Meta:  
-        model = payroll  
-        fields = ('payroll_file','status')  
-        help_texts = {
-            'payroll_file': '',
-        }  
+# class NoValidatePayroll(forms.ModelForm):  
+#     class Meta:  
+#         model = payroll  
+#         fields = ('payroll_file','status')  
+#         help_texts = {
+#             'payroll_file': '',
+#         }  
