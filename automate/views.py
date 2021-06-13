@@ -19,7 +19,7 @@ import requests
 
 #email part
 SenderAddress="bandersnatch28@gmail.com"
-pswd="__--__"
+pswd="Geetha10raksha1234"
 # password generator.
 DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']   
 LOCASE_CHARACTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h','i', 'j', 'k', 'm', 'n', 'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'] 
